@@ -65,7 +65,7 @@ module Tourmaline
     # Reply directly to the incoming message
     def reply(text : String, **kwargs)
       with_message do |message|
-        kwargs = kwargs.merge(reply_to_message_id: message.message_id)
+        kwargs = kwargs.merge(reply_parameters: ReplyParameters.new(message.message_id))
         @client.send_message(**kwargs, chat_id: message.chat.id, text: text)
       end
     end
@@ -82,7 +82,7 @@ module Tourmaline
       # Reply directly to the incoming message with a {{key.id}}
       def reply_with_{{key.id}}({{ key.id }}, **kwargs)
         with_message do |message|
-          kwargs = kwargs.merge(reply_to_message_id: message.message_id)
+          kwargs = kwargs.merge(reply_parameters: ReplyParameters.new(message.message_id))
           @client.send_{{ key.id }}(**kwargs, {{ value.id }}: {{ key.id }}, chat_id: message.chat.id)
         end
       end
@@ -99,7 +99,7 @@ module Tourmaline
       # Reply directly to the incoming message with a {{name.id}}
       def reply_with_{{name.id}}(**kwargs)
         with_message do |message|
-          kwargs = kwargs.merge(reply_to_message_id: message.message_id)
+          kwargs = kwargs.merge(reply_parameters: ReplyParameters.new(message.message_id))
           @client.send_dice(**kwargs, chat_id: message.chat.id, emoji: {{emoji.stringify}})
         end
       end
@@ -115,7 +115,7 @@ module Tourmaline
     # Reply directly to the incoming message with a location
     def reply_with_location(latitude : Float64, longitude : Float64, **kwargs)
       with_message do |message|
-        kwargs = kwargs.merge(reply_to_message_id: message.message_id)
+        kwargs = kwargs.merge(reply_parameters: ReplyParameters.new(message.message_id))
         @client.send_location(**kwargs, latitude: latitude, longitude: longitude, chat_id: message.chat.id)
       end
     end
@@ -130,7 +130,7 @@ module Tourmaline
     # Reply directly to the incoming message with a poll
     def reply_with_poll(question : String, options : Array(String), **kwargs)
       with_message do |message|
-        kwargs = kwargs.merge(reply_to_message_id: message.message_id)
+        kwargs = kwargs.merge(reply_parameters: ReplyParameters.new(message.message_id))
         @client.send_poll(**kwargs, question: question, options: options, chat_id: message.chat.id)
       end
     end
