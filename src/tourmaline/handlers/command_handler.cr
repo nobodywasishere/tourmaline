@@ -15,7 +15,7 @@ module Tourmaline
 
     def call(ctx : Context)
       if (message = ctx.message) || (message = ctx.channel_post)
-        if (text = message.text) || (text = message.caption)
+        if message.is_a?(Message) && ((text = message.text) || (text = message.caption))
           command_entities = message.text_entities("bot_command").to_a
           return if command_entities.empty?
 
