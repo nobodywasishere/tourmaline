@@ -58,8 +58,8 @@ module Tourmaline
       chats << self.chat
       chats << self.sender_chat
       chats << self.forward_from_chat
-      if reply_message = self.reply_message
-        chats.concat(reply_message.chats)
+      if reply_to_message = self.reply_to_message
+        chats.concat(reply_to_message.chats)
       end
       chats.compact.uniq
     end
